@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion as MotionComponent } from "framer-motion";
 import ProjectsCarousel from "../../ui/ProjectsCarousel";
 import projectData from "../../data/ProjectsData";
+import Image from "next/image";
 
 const ProjectItem = ({
   thumbnail,
@@ -19,10 +20,13 @@ const ProjectItem = ({
     transition={{ duration: 0.5, ease: "easeOut" }}
   >
     <div className="w-1/2 relative group">
-      <img
+      <Image
         src={thumbnail}
-        className="w-full h-auto aspect-video object-contain border-2"
         alt={title}
+        width={800} // adjust based on your layout
+        height={450} // maintain aspect ratio
+        className="w-full h-auto aspect-video object-contain border-2"
+        priority={false} // use true for images above the fold
       />
       <div
         className="h-1/2 absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 self-end flex items-center justify-center"
@@ -43,9 +47,11 @@ const ProjectItem = ({
     <div className="w-1/2 flex flex-col gap-2 pr-10">
       <h2 className="text-3xl font-medium m-0 leading-none">{title}</h2>
       <div className="font-extralight text-xl flex flex-col gap-2">
-        {Array.isArray(description)
-          ? description.map((line, idx) => <p key={idx}>{line}</p>)
-          : <p>{description}</p>}
+        {Array.isArray(description) ? (
+          description.map((line, idx) => <p key={idx}>{line}</p>)
+        ) : (
+          <p>{description}</p>
+        )}
       </div>
     </div>
   </MotionComponent.div>
