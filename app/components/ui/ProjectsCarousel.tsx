@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   Carousel,
   CarouselContent,
@@ -58,12 +59,15 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
                 key={idx}
                 className="basis-1 lg:basis-1/2 pl-4 flex items-center justify-center"
               >
-                <div className="aspect-square w-full max-h-[60vh]">
-                  <img
+                <div className="aspect-square w-full max-h-[60vh] relative">
+                  <Image
                     src={src}
                     alt={`Project Image ${idx + 1}`}
+                    width={1000}
+                    height={1000}
                     className="w-full h-full object-contain rounded-lg"
-                    />
+                    loading="lazy"
+                  />
                 </div>
               </CarouselItem>
             ))}
