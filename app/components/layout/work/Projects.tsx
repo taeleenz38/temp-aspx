@@ -5,37 +5,22 @@ import { motion as MotionComponent } from "framer-motion";
 
 const projectData = [
   {
+    category: "videographers",
     image: "/mock-project-3.jpg",
     title: "Title 1",
-    description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam
-    culpa neque pariatur quasi recusandae, sapiente aut! Et earum quod
-    autem dicta, debitis fuga fugiat iusto ab voluptate iste tenetur
-    dolorum? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Totam pariatur atque minima quos possimus eligendi, cumque facilis
-    dicta numquam quaerat nemo odio officiis dolores quia beatae illo
-    quibusdam soluta vero?`,
+    description: "Sample description for videographers...",
   },
   {
+    category: "photographers",
     image: "/mock-project-2.png",
     title: "Title 2",
-    description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam
-    culpa neque pariatur quasi recusandae, sapiente aut! Et earum quod
-    autem dicta, debitis fuga fugiat iusto ab voluptate iste tenetur
-    dolorum? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Totam pariatur atque minima quos possimus eligendi, cumque facilis
-    dicta numquam quaerat nemo odio officiis dolores quia beatae illo
-    quibusdam soluta vero?`,
+    description: "Sample description for photographers...",
   },
   {
+    category: "artists",
     image: "/mock-project-1.jpg",
     title: "Title 3",
-    description: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam
-    culpa neque pariatur quasi recusandae, sapiente aut! Et earum quod
-    autem dicta, debitis fuga fugiat iusto ab voluptate iste tenetur
-    dolorum? Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Totam pariatur atque minima quos possimus eligendi, cumque facilis
-    dicta numquam quaerat nemo odio officiis dolores quia beatae illo
-    quibusdam soluta vero?`,
+    description: "Sample description for artists...",
   },
 ];
 
@@ -79,13 +64,21 @@ const ProjectItem = ({
   </MotionComponent.div>
 );
 
-const Projects = () => {
+const Projects = ({ activeCategory }: { activeCategory: string }) => {
+  const filteredProjects =
+    activeCategory === "All"
+      ? projectData
+      : projectData.filter(
+          (project) =>
+            project.category.toLowerCase() === activeCategory.toLowerCase()
+        );
+
   return (
     <>
-      {projectData.map((project, index) => (
+      {filteredProjects.map((project, index) => (
         <React.Fragment key={index}>
           <ProjectItem {...project} />
-          {index < projectData.length - 1 && <Divider />}
+          {index < filteredProjects.length - 1 && <Divider />}
         </React.Fragment>
       ))}
     </>
