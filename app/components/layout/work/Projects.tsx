@@ -41,14 +41,14 @@ const ProjectItem = ({
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white text-2xl font-extralight hover:cursor-pointer hover:font-light duration-200"
+            className="text-white text-2xl font-extralight hover:cursor-pointer hover:scale-105 hover:font-light duration-200"
           >
             View Video
           </a>
         ) : (
           <p
             onClick={onViewMore}
-            className="text-white text-2xl font-extralight hover:cursor-pointer hover:font-light duration-200"
+            className="text-white text-2xl font-extralight hover:cursor-pointer hover:scale-105 hover:font-light duration-200"
           >
             View More
           </p>
