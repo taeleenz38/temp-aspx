@@ -5,12 +5,6 @@ import { motion as MotionComponent } from "framer-motion";
 import ProjectsCarousel from "../../ui/ProjectsCarousel";
 import projectData from "../../data/ProjectsData";
 
-const Divider = () => (
-  <div className="w-1/2 flex justify-center">
-    <span className="w-2 h-24 bg-black" />
-  </div>
-);
-
 const ProjectItem = ({
   thumbnail,
   title,
@@ -18,7 +12,7 @@ const ProjectItem = ({
   onViewMore,
 }: (typeof projectData)[0] & { onViewMore: () => void }) => (
   <MotionComponent.div
-    className="flex gap-4"
+    className="flex gap-4 mb-14"
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.3 }}
@@ -27,7 +21,7 @@ const ProjectItem = ({
     <div className="w-1/2 relative group">
       <img
         src={thumbnail}
-        className="w-full h-auto object-contain border-2"
+        className="w-full h-auto aspect-video object-contain border-2"
         alt={title}
       />
       <div
@@ -48,7 +42,11 @@ const ProjectItem = ({
 
     <div className="w-1/2 flex flex-col gap-2 pr-10">
       <h2 className="text-3xl font-medium m-0 leading-none">{title}</h2>
-      <p className="font-extralight text-xl">{description}</p>
+      <div className="font-extralight text-xl flex flex-col gap-2">
+        {Array.isArray(description)
+          ? description.map((line, idx) => <p key={idx}>{line}</p>)
+          : <p>{description}</p>}
+      </div>
     </div>
   </MotionComponent.div>
 );
@@ -72,7 +70,7 @@ const Projects = ({ activeCategory }: { activeCategory: string }) => {
             {...project}
             onViewMore={() => setSelectedImages(project.images)}
           />
-          {index < filteredProjects.length - 1 && <Divider />}
+          {index < filteredProjects.length - 1}
         </React.Fragment>
       ))}
 

@@ -62,8 +62,8 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
                   <img
                     src={src}
                     alt={`Project Image ${idx + 1}`}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
+                    className="w-full h-full object-contain rounded-lg"
+                    />
                 </div>
               </CarouselItem>
             ))}
