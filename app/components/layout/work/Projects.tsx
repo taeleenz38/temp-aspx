@@ -19,7 +19,7 @@ const ProjectItem = ({
     viewport={{ once: true, amount: 0.3 }}
     transition={{ duration: 0.5, ease: "easeOut" }}
   >
-    <div className="w-1/2 relative group">
+    <div className="w-1/2 relative group shadow-md py-8">
       <Image
         src={thumbnail}
         alt={title}
