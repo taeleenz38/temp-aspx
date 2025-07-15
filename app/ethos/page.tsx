@@ -23,15 +23,15 @@ const Ethos = () => {
       <section className="snap-start">
         <Section4 />
       </section>
-      <section className="snap-start">
+      {/* <section className="snap-start">
         <Section5 />
-      </section>
-      <section className="snap-start">
+      </section> */}
+      {/* <section className="snap-start">
         <Section6 />
       </section>
       <section className="snap-start">
         <Section7 />
-      </section>
+      </section> */}
       <section className="snap-start">
         <Section8 />
       </section>
