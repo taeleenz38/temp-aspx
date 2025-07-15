@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion as MotionComponent } from "framer-motion";
-
+import ProjectsCarousel from "../../ui/ProjectsCarousel";
 const projectData = [
   {
     category: "videographers",
@@ -96,62 +96,6 @@ const ProjectItem = ({
   </MotionComponent.div>
 );
 
-const ImageModal = ({
-  images,
-  onClose,
-}: {
-  images: string[];
-  onClose: () => void;
-}) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    document.body.classList.add("overflow-hidden");
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
-
-  return (
-    <div
-      className="fixed inset-0 bg-black z-50 flex items-center justify-center"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-    >
-      <div
-        ref={modalRef}
-        className="bg-white p-6 rounded-xl w-4/5 max-h-[90vh] overflow-auto relative"
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {images.map((src, idx) => (
-            <img
-              key={idx}
-              src={src}
-              alt={`Project Image ${idx + 1}`}
-              className="w-full h-auto rounded-lg"
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const Projects = ({ activeCategory }: { activeCategory: string }) => {
   const [selectedImages, setSelectedImages] = useState<string[] | null>(null);
 
@@ -176,7 +120,7 @@ const Projects = ({ activeCategory }: { activeCategory: string }) => {
       ))}
 
       {selectedImages && (
-        <ImageModal
+        <ProjectsCarousel
           images={selectedImages}
           onClose={() => setSelectedImages(null)}
         />
