@@ -19,13 +19,13 @@ const ProjectItem = ({
     viewport={{ once: true, amount: 0.3 }}
     transition={{ duration: 0.5, ease: "easeOut" }}
   >
-    <div className="w-1/2 relative group shadow-md py-8">
+    <div className="w-1/2 relative group shadow-md p-8">
       <Image
         src={thumbnail}
         alt={title}
         width={800} // adjust based on your layout
         height={450} // maintain aspect ratio
-        className="w-full h-auto aspect-video object-contain border-2"
+        className="w-full h-auto aspect-video object-contain"
         priority={false} // use true for images above the fold
       />
       <div
@@ -57,9 +57,16 @@ const ProjectItem = ({
   </MotionComponent.div>
 );
 
-const Projects = ({ activeCategory }: { activeCategory: string }) => {
+const Projects = ({
+  activeCategory,
+  sortOrder,
+}: {
+  activeCategory: string;
+  sortOrder: "asc" | "desc";
+}) => {
   const [selectedImages, setSelectedImages] = useState<string[] | null>(null);
 
+  // Filter by category
   const filteredProjects =
     activeCategory === "All"
       ? projectData
@@ -68,15 +75,22 @@ const Projects = ({ activeCategory }: { activeCategory: string }) => {
             project.category.toLowerCase() === activeCategory.toLowerCase()
         );
 
+  // Sort by year
+  const sortedProjects = [...filteredProjects].sort((a, b) => {
+    const yearA = parseInt(a.year);
+    const yearB = parseInt(b.year);
+    return sortOrder === "asc" ? yearA - yearB : yearB - yearA;
+  });
+
   return (
     <>
-      {filteredProjects.map((project, index) => (
+      {sortedProjects.map((project, index) => (
         <React.Fragment key={index}>
           <ProjectItem
             {...project}
             onViewMore={() => setSelectedImages(project.images)}
           />
-          {index < filteredProjects.length - 1}
+          {index < sortedProjects.length - 1}
         </React.Fragment>
       ))}
 
@@ -89,5 +103,6 @@ const Projects = ({ activeCategory }: { activeCategory: string }) => {
     </>
   );
 };
+
 
 export default Projects;
