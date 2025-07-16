@@ -25,7 +25,7 @@ const PeopleCarousel: React.FC<Props> = ({ activeCategory }) => {
       ? peopleData
       : peopleData.filter((person: any) =>
           person.category
-            .map((c: any) => c.toLowerCase())
+            .map((c: string) => c.toLowerCase())
             .includes(activeCategory.toLowerCase())
         );
 
