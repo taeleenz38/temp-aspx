@@ -16,14 +16,21 @@ interface Props {
   activeCategory: string;
 }
 
+interface Person {
+  name: string;
+  title: string;
+  headshot: string;
+  category: string[];
+}
+
 const PeopleCarousel: React.FC<Props> = ({ activeCategory }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
-  const filteredPeople =
+  const filteredPeople: Person[] =
     activeCategory === "All"
       ? peopleData
-      : peopleData.filter((person: any) =>
+      : peopleData.filter((person: Person) =>
           person.category
             .map((c: string) => c.toLowerCase())
             .includes(activeCategory.toLowerCase())
@@ -33,7 +40,7 @@ const PeopleCarousel: React.FC<Props> = ({ activeCategory }) => {
     <div className="h-5/6 flex flex-col">
       <Carousel className="w-full h-full hover:cursor-grab flex" ref={ref}>
         <CarouselContent className="-ml-4 h-full">
-          {filteredPeople.map((person: any, index: any) => (
+          {filteredPeople.map((person: Person, index: number) => (
             <CarouselItem
               key={index}
               className={`h-full ${
