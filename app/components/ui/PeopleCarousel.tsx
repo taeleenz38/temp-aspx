@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import peopleData from "../data/peoplesData";
+import peopleData from "../data/PeoplesData";
 
 interface Props {
   activeCategory: string;
@@ -25,7 +25,7 @@ const PeopleCarousel: React.FC<Props> = ({ activeCategory }) => {
       ? peopleData
       : peopleData.filter((person: any) =>
           person.category
-            .map((c) => c.toLowerCase())
+            .map((c: any) => c.toLowerCase())
             .includes(activeCategory.toLowerCase())
         );
 
